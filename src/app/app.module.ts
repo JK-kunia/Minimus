@@ -9,6 +9,7 @@ import { AddCardComponent } from './ui/add-card/add-card.component';
 import { DetailsComponent } from './details/details.component';
 import { AddComponent } from './pages/add/add.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
     DetailsComponent,
     AddComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
