@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { WeatherService } from '../../services/weather/weather.service';
-import { FbService } from '../../services/fb/fb.service';
-import { first } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {WeatherService} from '../../services/weather/weather.service';
+import {FbService} from '../../services/fb/fb.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss'],
+  styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit, OnDestroy {
+
   temp: number;
   city = 'Rome';
   state: string;
@@ -20,11 +21,9 @@ export class AddComponent implements OnInit, OnDestroy {
   followedCM = false;
   sub1;
 
-  constructor(
-    public http: HttpClient,
-    public weather: WeatherService,
-    public fb: FbService
-  ) {}
+
+  constructor(public http: HttpClient, public weather: WeatherService, public fb: FbService) {
+  }
 
   ngOnInit() {
     // getting the city placeID
@@ -33,17 +32,14 @@ export class AddComponent implements OnInit, OnDestroy {
       this.temp = Math.ceil(Number(payload.main.temp));
     });
 
-    this.http
-      .get('https://restcountries.eu/rest/v2/all')
-      .pipe(first())
-      .subscribe((countries: Array<any>) => {
-        countries.forEach((country: any) => {
-          if (country.capital.length) {
-            this.capitals.push(country.capital);
-          }
-        });
-        this.capitals.sort();
+    this.http.get('https://restcountries.eu/rest/v2/all').pipe((first())).subscribe((countries: Array<any>) => {
+      countries.forEach((country: any) => {
+        if (country.capital.length) {
+          this.capitals.push(country.capital);
+        }
       });
+      this.capitals.sort();
+    });
 
     this.sub1 = this.fb.getCities().subscribe((cities) => {
       Object.values(cities).forEach((city: any) => {
@@ -72,4 +68,5 @@ export class AddComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub1.unsubscribe();
   }
+
 }

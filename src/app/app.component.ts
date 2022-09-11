@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UiService } from './services/ui/ui.service';
-import { FbService } from './services/fb/fb.service';
-import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UiService} from './services/ui/ui.service';
+import {FbService} from './services/fb/fb.service';
+import {take} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
   showMenu = false;
@@ -15,11 +15,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   userEmail = '';
 
-  constructor(
-    public ui: UiService,
-    public fb: FbService,
-    public router: Router
-  ) {}
+  constructor(public ui: UiService, public fb: FbService, public router: Router) {
+  }
 
   loggedIn = this.fb.isAuth();
   sub1;
@@ -32,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.fb.auth.userData().subscribe((user) => {
       this.userEmail = user.email;
     });
+
   }
 
   toggleMenu() {
@@ -51,4 +49,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/login');
     this.fb.auth.signout();
   }
+
 }
